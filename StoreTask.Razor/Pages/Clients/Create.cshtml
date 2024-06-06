@@ -1,0 +1,29 @@
+﻿@page
+@model StoreTask.Razor.Pages.Clients.CreateModel
+@{
+}
+<h1>Create Employee</h1>
+<br />
+<hr />
+
+<form asp-action="Create" enctype="multipart/form-data">
+    @*<partial name="PartialViews/_CreateUpdatePartial" model="@Model" />*@
+    <div class="form-group">
+        <label class="col-form-label" asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" asp-for="Code"></label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Create" class="btn btn-primary"/> |
+    <input type="reset" value="Clear" class="btn btn-secondary"/> |
+    <a class="btn btn-dark" asp-action="Index">Back To List</a>
+</form>
+
+@section validationSection {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
