@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StoreTask.Repository\StoreTask.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

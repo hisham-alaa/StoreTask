@@ -1,4 +1,17 @@
 ﻿@page
 @model StoreTask.Razor.Pages.Clients.DeleteModel
 @{
+    ViewData["Title"] = "Delete Client";
 }
+
+<h1>Delete Client Confirmation </h1>
+<br />
+<hr />
+
+<div class="alert alert-danger">
+    @*<h5> Are you sure you want to delete Client - @Model.Client.Name</h5>*@
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Yes</button>
+        <a class="btn btn-primary" asp-page="Index">No</a>
+    </form>
+</div>

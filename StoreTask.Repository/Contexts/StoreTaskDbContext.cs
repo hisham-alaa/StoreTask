@@ -6,10 +6,12 @@ namespace StoreTask.Repository.Contexts
 {
     public class StoreTaskDbContext : DbContext
     {
+
         public StoreTaskDbContext(DbContextOptions options) : base(options)
         {
 
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
@@ -18,7 +20,9 @@ namespace StoreTask.Repository.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        DbSet<Client> Clients { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Product> products { get; set; }
+        public DbSet<ClientProducts> ClientProducts { get; set; }
 
     }
 }

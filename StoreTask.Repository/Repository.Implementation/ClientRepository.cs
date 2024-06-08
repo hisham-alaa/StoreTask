@@ -1,27 +1,54 @@
-﻿using StoreTask.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreTask.Core.Models;
 using StoreTask.Core.Repositories.Contract;
+using StoreTask.Repository.Contexts;
 
 namespace StoreTask.Repository.Repository.Implementation
 {
     public class ClientRepository : IClientRepository
     {
-        public List<Client> clients;
-        public ClientRepository()
+        private protected readonly StoreTaskDbContext _dbContext;
+
+        public ClientRepository(StoreTaskDbContext dbContext)
         {
-            clients = new List<Client>
-            {
-                new Client { Id = 1, Name = "Client A", Code = "123", Class = ClientClass.ClassA, State = ClientState.Active },
-                new Client { Id = 2, Name = "Client B", Code = "456", Class = ClientClass.ClassB, State = ClientState.InActive },
-                new Client { Id = 3, Name = "Client C", Code = "789", Class = ClientClass.ClassC, State = ClientState.Pending }
-            };
+            _dbContext = dbContext;
         }
+
         public IEnumerable<Client> GetClients()
         {
-            return clients;
+            return _dbContext.Clients;
         }
+
         public Client GetClientById(int id)
         {
-            return clients.ElementAt(0);
+            var client = _dbContext.Clients.Include(c => c.ClientProducts).FirstOrDefault(c => c.Id == id);
+            return client;
         }
+
+        public Client CreateClient(Client client)
+        {
+            _dbContext.Clients.Add(client);
+            _dbContext.SaveChanges();
+            return client;
+        }
+
+        public Client UpdateClient(Client updatedClient)
+        {
+            _dbContext.Clients.Update(updatedClient);
+            _dbContext.SaveChanges();
+            return updatedClient;
+        }
+
+        public Client DeleteClient(int id)
+        {
+            var clientToDelete = GetClientById(id);
+            if (clientToDelete != null)
+            {
+                _dbContext.Clients.Remove(clientToDelete);
+                _dbContext.SaveChanges();
+            }
+            return clientToDelete;
+        }
+
     }
 }

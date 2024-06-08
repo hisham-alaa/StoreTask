@@ -1,4 +1,8 @@
+using AutoMapper;
+using Demo.PL.helpers;
+using Microsoft.EntityFrameworkCore;
 using StoreTask.Core.Repositories.Contract;
+using StoreTask.Repository.Contexts;
 using StoreTask.Repository.Repository.Implementation;
 
 namespace StoreTask.Razor
@@ -9,10 +13,20 @@ namespace StoreTask.Razor
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             #region Add services to the DI Container.
 
             builder.Services.AddRazorPages();
-            builder.Services.AddSingleton<IClientRepository, ClientRepository>();
+
+            builder.Services.AddScoped<IClientRepository, ClientRepository>();
+
+            builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
+
+
+            builder.Services.AddDbContextPool<StoreTaskDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             #endregion
 

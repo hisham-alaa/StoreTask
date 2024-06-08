@@ -6,12 +6,15 @@ namespace StoreTask.Razor.Pages.Clients
 {
     public class IndexModel : PageModel
     {
-        public readonly IClientRepository _clientRepository;
+        private readonly IClientRepository _clientRepository;
         public IEnumerable<Client> clients { get; set; }
         public IndexModel(IClientRepository clientRepository)
         {
             _clientRepository = clientRepository;
         }
+
+        //everytime the page loading this method is going to be called.
+        //so prepare everything here.
         public void OnGet()
         {
             clients = _clientRepository.GetClients();

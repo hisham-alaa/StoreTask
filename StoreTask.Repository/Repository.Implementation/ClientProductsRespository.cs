@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreTask.Repository.Configurations
+namespace StoreTask.Repository.Repository.Implementation
 {
-    public class ClientProducts
+    public class ClientProductsRespository
     {
     }
 }
